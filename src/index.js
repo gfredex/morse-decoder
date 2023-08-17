@@ -38,7 +38,7 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    let resultStr = '';
+    let resultStr = [];
     let tempStr = expr;
     const arrCode = [];
     let tempChar = '';
@@ -51,19 +51,31 @@ function decode(expr) {
             tempChar = '';
         }
     }
+
     for (i = 0; i < arrCode.length; i++) {
         if (arrCode[i] == '**********') {
             resultStr.push(' ');
         } else {
+
             for (j = 0; j < arrCode[i].length; j++) {
+                // console.log(arrCode[i].length);
                 codeChar += arrCode[i][j];
                 if (codeChar.length === 2) {
+                    // console.log(codeChar);
                     if (codeChar === '00') { morseStr += ''; }
                     else if (codeChar === '10') { morseStr += '.'; }
                     else if (codeChar === '11') { morseStr += '-'; }
+
+                    codeChar = '';
+
                 }
-                resultStr.push(morseStr);
+                console.log(morseStr);
+                tempChar = morseStr;
+                morseStr = '';
+                // console.log(morseStr);
+
             }
+            resultStr.push(morseStr);
         }
     }
 
