@@ -44,43 +44,58 @@ function decode(expr) {
     let tempChar = '';
     let codeChar = '';
     let morseStr = '';
+    let decoderText = '';
     for (i = 0; i < tempStr.length; i++) {
-        tempChar += tempStr[i]
+        tempChar += tempStr[i];
         if (tempChar.length === 10) {
             arrCode.push(tempChar);
             tempChar = '';
         }
     }
+    // console.log(arrCode);
 
     for (i = 0; i < arrCode.length; i++) {
         if (arrCode[i] == '**********') {
             resultStr.push(' ');
         } else {
 
-            for (j = 0; j < arrCode[i].length; j++) {
+            for (j = 0; j < 10; j++) {
                 // console.log(arrCode[i].length);
                 codeChar += arrCode[i][j];
+
                 if (codeChar.length === 2) {
-                    // console.log(codeChar);
+                    console.log(codeChar);
                     if (codeChar === '00') { morseStr += ''; }
                     else if (codeChar === '10') { morseStr += '.'; }
                     else if (codeChar === '11') { morseStr += '-'; }
 
-                    codeChar = '';
+                    console.log(morseStr);
 
+                    codeChar = '';
                 }
-                console.log(morseStr);
-                tempChar = morseStr;
-                morseStr = '';
-                // console.log(morseStr);
 
             }
             resultStr.push(morseStr);
+            morseStr = '';
+            // resultStr.push(morseStr);
         }
     }
 
+    for (i = 0; i < resultStr.length; i++) {
+        if (resultStr[i] === ' ') {
+            decoderText += resultStr[i];
+        } else {
+            for (let key in MORSE_TABLE) {
+                if (resultStr[i] == key) {
+                    decoderText += MORSE_TABLE[key];
+                }
+            }
+        }
+
+    }
+
     // write your solution here
-    return resultStr;
+    return decoderText;
 }
 
 module.exports = {
